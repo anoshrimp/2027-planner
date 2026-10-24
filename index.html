@@ -39,17 +39,14 @@ h1 span{color:var(--faint)}
 /* Year view */
 .year{padding:0 max(24px,4vw) 56px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
 .year.hidden{display:none}
-.month-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px 14px 14px;min-width:0;transition:box-shadow .2s}
-.month-card:hover{box-shadow:var(--shadow)}
-.month-title{display:flex;justify-content:space-between;align-items:baseline;width:calc(100% - 12px);margin:0 6px 12px;padding:0;border:0;background:none;text-align:left}
+.month-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px 14px 14px;min-width:0;cursor:pointer;transition:box-shadow .2s,border-color .2s,transform .2s}
+.month-card:hover{box-shadow:var(--shadow);border-color:#dcd8cf;transform:translateY(-2px)}
+.month-title{margin:0 6px 12px}
 .month-title strong{font-size:19px;letter-spacing:-.04em;font-weight:720}
-.month-title span{font-size:10.5px;color:var(--muted);font-weight:650;letter-spacing:.08em;transition:color .15s}
-.month-title:hover span{color:var(--ink)}
 .mini-heads{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
 .weekday{font-size:9.5px;color:var(--faint);text-align:center;padding:0 0 6px;font-weight:700}
 .mini-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-template-rows:23px 5px 5px 1fr;row-gap:3px;height:56px}
-.mini-day{grid-row:1/-1;display:flex;flex-direction:column;align-items:center;min-width:0;padding-top:2px;border-radius:var(--r-sm);cursor:pointer;transition:background .12s}
-.mini-day:hover{background:var(--hover)}
+.mini-day{grid-row:1/-1;display:flex;flex-direction:column;align-items:center;min-width:0;padding-top:2px}
 .mini-num{position:relative;z-index:2;width:21px;height:21px;display:grid;place-items:center;border-radius:50%;font-size:10.5px;color:var(--ink-2);font-variant-numeric:tabular-nums}
 .mini-day.weekend .mini-num{color:var(--muted)}
 .mini-day.has-plan .mini-num{color:var(--ink);font-weight:750}
@@ -112,8 +109,21 @@ textarea{min-height:84px;resize:vertical}
 input:focus,textarea:focus{border-color:var(--ink-2);box-shadow:0 0 0 3px #1b1b1a10}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .color-picker,.sticker-picker{display:flex;gap:8px;flex-wrap:wrap}
-.color-option{height:30px;width:30px;border-radius:9px;border:0;box-shadow:inset 0 0 0 1px #0000000f}
-.color-option.selected{outline:2px solid var(--ink);outline-offset:2px}
+.color-chip{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px 0 9px;border:1px solid var(--line);border-radius:999px;background:var(--surface);font-size:12px;font-weight:600}
+.color-chip i{width:14px;height:14px;border-radius:5px;box-shadow:inset 0 0 0 1px #0000000f}
+.color-chip:hover{border-color:#cfcbc2}
+.color-chip.selected{border:2px solid var(--ink);padding:0 11px 0 8px}
+.legend-colors{display:contents}
+.legend-edit{border:0;background:none;padding:4px 6px;margin-left:-4px;border-radius:6px;font-size:11.5px;font-weight:650;color:var(--muted)}
+.legend-edit:hover{background:var(--line-soft);color:var(--ink)}
+.color-rows{display:grid;gap:8px}
+.color-row{display:grid;grid-template-columns:44px minmax(0,1fr) 38px;gap:8px;align-items:center}
+.color-row input[type=color]{width:44px;height:40px;padding:3px;border:1px solid var(--line);border-radius:10px;background:var(--surface);cursor:pointer}
+.color-row input[type=color]::-webkit-color-swatch-wrapper{padding:0}
+.color-row input[type=color]::-webkit-color-swatch{border:0;border-radius:7px}
+.color-row input[type=color]::-moz-color-swatch{border:0;border-radius:7px}
+.color-row .btn:disabled{opacity:.35;cursor:default;box-shadow:none}
+.add-color{margin-top:12px;width:100%;border-style:dashed}
 .sticker-option{height:40px;width:42px;background:var(--hover);border:1px solid var(--line-soft);border-radius:10px;font-size:21px;color:var(--muted)}
 .sticker-option:hover{background:#fff;border-color:var(--line)}
 .sticker-option.selected{border:2px solid var(--ink);background:#fff}
@@ -156,21 +166,34 @@ input:focus,textarea:focus{border-color:var(--ink-2);box-shadow:0 0 0 3px #1b1b1
 }
 </style>
 <style>
-.cloud-auth-overlay{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;padding:24px}.cloud-auth-card{width:min(430px,100%);background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:var(--shadow)}.cloud-auth-card h2{font-size:34px;letter-spacing:-.05em;margin:10px 0 9px}.cloud-auth-card p{font-size:13px;color:var(--muted);line-height:1.6;margin:0 0 18px}.cloud-auth-card label{margin-top:14px}.cloud-auth-card input{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--surface);outline:none;font-size:14px}.cloud-auth-card input:focus{border-color:var(--ink-2);box-shadow:0 0 0 3px #1b1b1a10}.cloud-auth-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:22px}.cloud-auth-status{min-height:18px;margin-top:14px!important;color:var(--danger)!important}.cloud-auth-note{font-size:10.5px!important;color:var(--muted)!important;margin-top:16px!important}.cloud-account{display:flex;align-items:center;gap:8px;height:38px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface);padding:0 6px 0 12px;font-size:11.5px;font-weight:650}.cloud-account-email{max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cloud-sync{font-size:10.5px;color:var(--holiday-ink);font-weight:600}.cloud-sync.error{color:var(--danger)}.cloud-signout{border:0;background:var(--hover);border-radius:8px;padding:6px 9px;font-size:10.5px;font-weight:700}.cloud-signout:hover{background:var(--line-soft)}.cloud-auth-overlay[hidden]{display:none}@media(max-width:650px){.cloud-auth-card{padding:24px}.cloud-auth-actions{grid-template-columns:1fr}.cloud-account{width:100%}.cloud-account-email{flex:1;max-width:none}}
+.cloud-auth-overlay{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;padding:24px}.cloud-auth-card{width:min(430px,100%);background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:var(--shadow)}.cloud-auth-card h2{font-size:34px;letter-spacing:-.05em;margin:10px 0 9px}.cloud-auth-card p{font-size:13px;color:var(--muted);line-height:1.6;margin:0 0 18px}.cloud-auth-card label{margin-top:14px}.cloud-auth-card input{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--surface);outline:none;font-size:14px}.cloud-auth-card input:focus{border-color:var(--ink-2);box-shadow:0 0 0 3px #1b1b1a10}.cloud-auth-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:22px}.cloud-auth-status{min-height:18px;margin-top:14px!important;color:var(--danger)!important}.cloud-auth-note{font-size:10.5px!important;color:var(--muted)!important;margin-top:16px!important}.avatar-face{display:grid;place-items:center;border-radius:50%;line-height:1;color:#3a2f1a;font-weight:750;user-select:none}.cloud-avatar{position:relative;flex:none;width:40px;height:40px;padding:0;border:0;font-size:21px;box-shadow:0 0 0 1px var(--line),0 0 0 3px var(--surface);transition:transform .15s,box-shadow .15s}.cloud-avatar.initial{font-size:16px}.cloud-avatar:hover{transform:translateY(-1px);box-shadow:0 0 0 1px #cfcbc2,0 4px 12px #1b1b1a1a}.cloud-avatar.sync-error::after{content:'';position:absolute;right:-1px;top:-1px;width:10px;height:10px;border-radius:50%;background:var(--danger);border:2px solid var(--surface)}.account-preview{display:flex;justify-content:center;margin:2px 0 4px}.avatar-face.big{width:76px;height:76px;font-size:40px}.avatar-face.big.initial{font-size:30px}.avatar-color{width:30px;height:30px;border-radius:50%;border:0;box-shadow:inset 0 0 0 1px #0000000f}.avatar-color.selected{outline:2px solid var(--ink);outline-offset:2px}.account-modal .account-email{margin:0 0 12px}.account-modal .account-sync{margin:18px 0 0;font-size:11.5px}.cloud-sync{color:var(--holiday-ink);font-weight:600}.cloud-sync.error{color:var(--danger)}.cloud-auth-overlay[hidden]{display:none}@media(max-width:650px){.cloud-auth-card{padding:24px}.cloud-auth-actions{grid-template-columns:1fr}}
 </style>
 </head>
-<body><header><div><div class="eyebrow">The life planner · Edition 01</div><h1>Twenty Twenty-Seven<span>.</span></h1><div class="subtitle">A little space for big plans ✳ &nbsp; / &nbsp; 2027</div></div><div class="actions"><button class="btn" id="exportBtn">↗ Export backup</button><button class="btn" id="importBtn">↙ Import</button><input type="file" id="importFile" accept="application/json" hidden><button class="btn dark" id="addBtn">＋ New plan</button></div></header><div class="toolbar"><div class="legend"><span><i class="dot" style="background:#bcebc8"></i>US federal holiday</span><span><i class="dot" style="background:#ffbdcf"></i>Travel</span><span><i class="dot" style="background:#b9a5ff"></i>Milestone</span><span><i class="dot" style="background:#ffcf79"></i>Life</span><span><i class="dot" style="background:#8adcf3"></i>Other</span></div><div class="hint">Click any month to zoom in · Click any day to make a plan</div></div><main id="year" class="year"></main><section id="detail" class="detail"><div class="detail-top"><div><button class="btn" id="backBtn">← Full year</button><div class="detail-title" id="detailTitle"></div></div><div class="detail-controls"><button class="btn icon" id="prevBtn" aria-label="Previous month">←</button><button class="btn icon" id="nextBtn" aria-label="Next month">→</button><button class="btn dark" id="detailAdd">＋ New plan</button></div></div><div class="detail-layout"><div class="big-calendar"><div id="bigHeads" class="big-heads"></div><div class="big-grid" id="bigGrid"></div></div><aside class="sidebar"><div class="eyebrow" style="margin-bottom:12px">Monthly notes</div><h3>Make it memorable.</h3><p>All your plans in one place. Tap an event to edit, or tap an empty day to add something new.</p><div id="sideEvents"></div></aside></div></section><div class="modal-bg" id="modalBg"><form class="modal" id="eventForm"><h2 id="modalTitle">New plan ✳</h2><p>Dream it, date it, make it happen.</p><label for="eventName">WHAT'S THE PLAN?</label><input id="eventName" type="text" placeholder="e.g. Tokyo spring trip" maxlength="90" required><div class="two"><div><label for="eventStart">START DATE</label><input id="eventStart" type="date" min="2027-01-01" max="2027-12-31" required></div><div><label for="eventEnd">END DATE</label><input id="eventEnd" type="date" min="2027-01-01" max="2027-12-31" required></div></div><label>COLOR TAG</label><div class="color-picker" id="colorPicker"></div><label>STICKER <span style="color:var(--muted);font-weight:500;letter-spacing:0">(optional)</span></label><div class="sticker-picker" id="stickerPicker"></div><label for="eventNotes">DETAILS / NOTES</label><textarea id="eventNotes" placeholder="Flights, reservations, things to remember..."></textarea><div class="modal-footer"><button class="btn danger" id="deleteBtn" type="button" style="display:none">Delete</button><div style="margin-left:auto"><button class="btn" type="button" id="cancelBtn">Cancel</button><button class="btn dark" type="submit">Save plan ↗</button></div></div></form></div><div class="toast" id="toast"></div><script>
-const YEAR=2027,months=['January','February','March','April','May','June','July','August','September','October','November','December'],days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];const palette=['#ffbdcf','#b9a5ff','#ffcf79','#8adcf3','#b8e6ac','#ff9d86','#b5b5b5'];const stickers=['','🎀','🐰','🐱','🐸','🐶','🐧','🍮','🌸','⭐','🍓','🧸','✈️','🎂','💌','🎵'];const holidays={'2027-01-01':"New Year's Day",'2027-01-18':'Martin Luther King Jr. Day','2027-02-15':"Washington's Birthday",'2027-05-31':'Memorial Day','2027-06-18':'Juneteenth (observed)','2027-07-05':'Independence Day (observed)','2027-09-06':'Labor Day','2027-10-11':'Columbus Day','2027-11-11':'Veterans Day','2027-11-25':'Thanksgiving Day','2027-12-24':'Christmas Day (observed)'};let events=[],activeMonth=null,editing=null,chosenColor=palette[0],chosenSticker='',toastTimer;try{const saved=JSON.parse(localStorage.getItem('my-2027-plans')||'[]');if(Array.isArray(saved))events=saved}catch{};const $=id=>document.getElementById(id),pad=n=>String(n).padStart(2,'0'),date=(m,d)=>`${YEAR}-${pad(m+1)}-${pad(d)}`,inEvent=(e,d)=>e.start<=d&&e.end>=d,escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const colorOf=e=>palette.includes(e.color)?e.color:palette[0],dayOf=ds=>+ds.slice(8,10),fmtDay=ds=>`${months[+ds.slice(5,7)-1].slice(0,3)} ${dayOf(ds)}`,fmtRange=e=>e.start===e.end?fmtDay(e.start):`${fmtDay(e.start)} – ${fmtDay(e.end)}`;
+<body><header><div><div class="eyebrow">The life planner · Edition 01</div><h1>Twenty Twenty-Seven<span>.</span></h1><div class="subtitle">A little space for big plans ✳ &nbsp; / &nbsp; 2027</div></div><div class="actions"><button class="btn dark" id="addBtn">＋ New plan</button></div></header><div class="toolbar"><div class="legend"><span><i class="dot" style="background:#bcebc8"></i>US federal holiday</span><span id="legendColors" class="legend-colors"></span><button type="button" class="legend-edit" id="editColorsBtn">✎ Edit colors</button></div><div class="hint">Click any month to zoom in · Click any day to make a plan</div></div><main id="year" class="year"></main><section id="detail" class="detail"><div class="detail-top"><div><button class="btn" id="backBtn">← Full year</button><div class="detail-title" id="detailTitle"></div></div><div class="detail-controls"><button class="btn icon" id="prevBtn" aria-label="Previous month">←</button><button class="btn icon" id="nextBtn" aria-label="Next month">→</button><button class="btn dark" id="detailAdd">＋ New plan</button></div></div><div class="detail-layout"><div class="big-calendar"><div id="bigHeads" class="big-heads"></div><div class="big-grid" id="bigGrid"></div></div><aside class="sidebar"><div class="eyebrow" style="margin-bottom:12px">Monthly notes</div><h3>Make it memorable.</h3><p>All your plans in one place. Tap an event to edit, or tap an empty day to add something new.</p><div id="sideEvents"></div></aside></div></section><div class="modal-bg" id="modalBg"><form class="modal" id="eventForm"><h2 id="modalTitle">New plan ✳</h2><p>Dream it, date it, make it happen.</p><label for="eventName">WHAT'S THE PLAN?</label><input id="eventName" type="text" placeholder="e.g. Tokyo spring trip" maxlength="90" required><div class="two"><div><label for="eventStart">START DATE</label><input id="eventStart" type="date" min="2027-01-01" max="2027-12-31" required></div><div><label for="eventEnd">END DATE</label><input id="eventEnd" type="date" min="2027-01-01" max="2027-12-31" required></div></div><label>COLOR</label><div class="color-picker" id="colorPicker"></div><label>STICKER <span style="color:var(--muted);font-weight:500;letter-spacing:0">(optional)</span></label><div class="sticker-picker" id="stickerPicker"></div><label for="eventNotes">DETAILS / NOTES</label><textarea id="eventNotes" placeholder="Flights, reservations, things to remember..."></textarea><div class="modal-footer"><button class="btn danger" id="deleteBtn" type="button" style="display:none">Delete</button><div style="margin-left:auto"><button class="btn" type="button" id="cancelBtn">Cancel</button><button class="btn dark" type="submit">Save plan ↗</button></div></div></form></div><div class="modal-bg" id="colorsBg"><form class="modal" id="colorsForm"><h2>Your colors ✳</h2><p>Decide what each color means. Changing a color updates every plan that uses it.</p><div class="color-rows" id="colorRows"></div><button type="button" class="btn add-color" id="addColorBtn">＋ Add color</button><div class="modal-footer"><div style="margin-left:auto"><button class="btn" type="button" id="colorsCancel">Cancel</button><button class="btn dark" type="submit">Save colors</button></div></div></form></div><div class="toast" id="toast"></div><script>
+const YEAR=2027,months=['January','February','March','April','May','June','July','August','September','October','November','December'],days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];const DEFAULT_CATEGORIES=[{id:'travel',name:'Travel',color:'#ffbdcf'},{id:'milestone',name:'Milestone',color:'#b9a5ff'},{id:'life',name:'Life',color:'#ffcf79'},{id:'other',name:'Other',color:'#8adcf3'},{id:'green',name:'Green',color:'#b8e6ac'},{id:'coral',name:'Coral',color:'#ff9d86'},{id:'gray',name:'Gray',color:'#b5b5b5'}],SUGGESTED_COLORS=['#ffbdcf','#b9a5ff','#ffcf79','#8adcf3','#b8e6ac','#ff9d86','#b5b5b5','#f5a8e0','#9fd8c4','#ffe28a','#9fb6ff','#d9c3a5'],CATEGORY_KEY='my-2027-categories',isHex=c=>/^#[0-9a-f]{6}$/i.test(c||'');const stickers=['','🎀','🐰','🐱','🐸','🐶','🐧','🍮','🌸','⭐','🍓','🧸','✈️','🎂','💌','🎵'];const holidays={'2027-01-01':"New Year's Day",'2027-01-18':'Martin Luther King Jr. Day','2027-02-15':"Washington's Birthday",'2027-05-31':'Memorial Day','2027-06-18':'Juneteenth (observed)','2027-07-05':'Independence Day (observed)','2027-09-06':'Labor Day','2027-10-11':'Columbus Day','2027-11-11':'Veterans Day','2027-11-25':'Thanksgiving Day','2027-12-24':'Christmas Day (observed)'};let events=[],activeMonth=null,editing=null,chosenColor='',chosenSticker='',toastTimer;try{const saved=JSON.parse(localStorage.getItem('my-2027-plans')||'[]');if(Array.isArray(saved))events=saved}catch{};const $=id=>document.getElementById(id),pad=n=>String(n).padStart(2,'0'),date=(m,d)=>`${YEAR}-${pad(m+1)}-${pad(d)}`,inEvent=(e,d)=>e.start<=d&&e.end>=d,escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+// Each color the user defines: what it means (name) and its shade. Plans store the shade itself.
+function cleanCategories(list){return Array.isArray(list)?list.filter(c=>c&&isHex(c.color)).map(c=>({id:String(c.id||c.color),name:String(c.name||'').trim().slice(0,30)||'Untitled',color:c.color.toLowerCase()})):[]}
+let categories=(()=>{try{const c=cleanCategories(JSON.parse(localStorage.getItem(CATEGORY_KEY)||'null'));return c.length?c:DEFAULT_CATEGORIES}catch{return DEFAULT_CATEGORIES}})(),colorDraft=[];
+function saveCategories(){localStorage.setItem(CATEGORY_KEY,JSON.stringify(categories));window.dispatchEvent(new CustomEvent('planner:categories',{detail:categories}))}
+// Called by the cloud sync when the signed-in account has its own colors.
+window.applyCloudCategories=list=>{const c=cleanCategories(list);if(!c.length||JSON.stringify(c)===JSON.stringify(categories))return;categories=c;localStorage.setItem(CATEGORY_KEY,JSON.stringify(c));renderLegend();render()};
+function renderLegend(){$('legendColors').innerHTML=categories.map(c=>`<span><i class="dot" style="background:${c.color}"></i>${escapeHTML(c.name)}</span>`).join('')}
+function openColors(){colorDraft=categories.map(c=>({...c,orig:c.color}));renderColorRows();$('colorsBg').classList.add('open')}function closeColors(){$('colorsBg').classList.remove('open')}
+function renderColorRows(){$('colorRows').innerHTML=colorDraft.map((c,i)=>`<div class="color-row"><input type="color" value="${c.color}" data-color-i="${i}" aria-label="Color for ${escapeHTML(c.name||'new color')}"><input type="text" value="${escapeHTML(c.name)}" data-name-i="${i}" maxlength="30" placeholder="What does this color mean?"><button type="button" class="btn icon" data-remove-i="${i}" aria-label="Remove color" ${colorDraft.length<2?'disabled':''}>×</button></div>`).join('');document.querySelectorAll('[data-color-i]').forEach(x=>x.oninput=()=>colorDraft[+x.dataset.colorI].color=x.value.toLowerCase());document.querySelectorAll('[data-name-i]').forEach(x=>x.oninput=()=>colorDraft[+x.dataset.nameI].name=x.value);document.querySelectorAll('[data-remove-i]').forEach(x=>x.onclick=()=>{colorDraft.splice(+x.dataset.removeI,1);renderColorRows()})}
+function addColor(){const used=colorDraft.map(c=>c.color),color=SUGGESTED_COLORS.find(c=>!used.includes(c))||'#'+Math.floor(Math.random()*0xffffff).toString(16).padStart(6,'0');colorDraft.push({id:(crypto.randomUUID&&crypto.randomUUID())||String(Date.now()),name:'',color});renderColorRows();document.querySelector(`[data-name-i="${colorDraft.length-1}"]`).focus()}
+function saveColors(ev){ev.preventDefault();const colors=colorDraft.map(c=>c.color);if(new Set(colors).size!==colors.length){toast('Each color can only be used once');return}const removed=categories.filter(c=>!colorDraft.some(d=>d.id===c.id)),fallback=colorDraft[0],moved=events.filter(e=>removed.some(c=>c.color===e.color)).length;if(moved&&!confirm(`${moved} plan${moved>1?'s use':' uses'} a color you removed. Move ${moved>1?'them':'it'} to “${fallback.name.trim()||'Untitled'}”?`))return;
+// Plans store the shade, so a changed or removed color is rewritten on every plan that used it.
+const remap=new Map();colorDraft.forEach(d=>{if(d.orig&&d.orig!==d.color)remap.set(d.orig,d.color)});removed.forEach(c=>remap.set(c.color,fallback.color));categories=cleanCategories(colorDraft);if([...remap].some(([from])=>events.some(e=>e.color===from))){events=events.map(e=>remap.has(e.color)?{...e,color:remap.get(e.color)}:e);save()}saveCategories();closeColors();renderLegend();render();toast('Colors saved ✳')}
+const colorOf=e=>isHex(e.color)?e.color:categories[0].color,dayOf=ds=>+ds.slice(8,10),fmtDay=ds=>`${months[+ds.slice(5,7)-1].slice(0,3)} ${dayOf(ds)}`,fmtRange=e=>e.start===e.end?fmtDay(e.start):`${fmtDay(e.start)} – ${fmtDay(e.end)}`;
 function save(){localStorage.setItem('my-2027-plans',JSON.stringify(events))}function getMonthDays(m){let count=new Date(YEAR,m+1,0).getDate(),offset=new Date(YEAR,m,1).getDay();return {count,offset}}
 // Calendar rows of a month: first and last day of the month that fall in each Sun–Sat week.
 function monthWeeks(m){const {count,offset}=getMonthDays(m),weeks=[];for(let w=0;w*7-offset<count;w++)weeks.push({w,from:Math.max(1,w*7-offset+1),to:Math.min(count,w*7-offset+7)});return weeks}
 // Stacks the plans touching one week into lanes, so each plan stays on one row across the week and overlaps never collide.
 function weekLanes(from,to){const laneEnds=[];return events.filter(e=>e.start<=to&&e.end>=from).sort((a,b)=>a.start.localeCompare(b.start)||b.end.localeCompare(a.end)||String(a.id).localeCompare(String(b.id))).map(e=>{const s=e.start<from?from:e.start,end=e.end>to?to:e.end;let lane=laneEnds.findIndex(x=>x<s);if(lane<0)lane=laneEnds.length;laneEnds[lane]=end;return {e,s,end,lane}})}
 function openMonth(m){activeMonth=(m+12)%12;$('year').classList.add('hidden');$('detail').classList.add('active');renderDetail();window.scrollTo({top:0,behavior:'smooth'})}function showYear(){activeMonth=null;$('detail').classList.remove('active');$('year').classList.remove('hidden');renderYear();window.scrollTo({top:0,behavior:'smooth'})}
-function renderYear(){$('year').innerHTML=months.map((name,m)=>{const {count,offset}=getMonthDays(m);const weeks=monthWeeks(m).map(({w,from,to})=>{let cells='';for(let c=0;c<7;c++){const d=w*7+c-offset+1;if(d<from||d>to)continue;const ds=date(m,d),ev=events.filter(e=>inEvent(e,ds)),sticker=ev.find(e=>e.sticker&&e.start===ds)?.sticker||'',tip=[holidays[ds],...ev.map(e=>e.name)].filter(Boolean).join(' · ');cells+=`<div class="mini-day${holidays[ds]?' holiday':''}${ev.length?' has-plan':''}${c===0||c===6?' weekend':''}" style="grid-column:${c+1}" data-date="${ds}" title="${escapeHTML(tip)}"><span class="mini-num">${d}</span><span class="mini-sticker">${sticker}</span></div>`}const bars=weekLanes(date(m,from),date(m,to)).filter(x=>x.lane<3).map(({e,s,end,lane})=>`<i class="mini-bar${lane?'':' highlight'}${e.start<s?' cont-l':''}${e.end>end?' cont-r':''}" style="--span:${dayOf(end)-dayOf(s)+1};grid-column:${(offset+dayOf(s)-1)%7+1}/span ${dayOf(end)-dayOf(s)+1};grid-row:${lane+1};background:${colorOf(e)}"></i>`).join('');return `<div class="mini-week">${cells}${bars}</div>`}).join('');const total=events.filter(e=>e.start<=date(m,count)&&e.end>=date(m,1)).length;return `<article class="month-card"><button type="button" class="month-title" data-month="${m}"><strong>${name}</strong><span>OPEN ↗</span></button><div class="mini-heads">${days.map(d=>`<div class="weekday">${d[0]}</div>`).join('')}</div>${weeks}<div class="month-foot"><span>${count} DAYS</span><span>${total?`${total} PLAN${total>1?'S':''}`:'READY FOR PLANS ✳'}</span></div></article>`}).join('');document.querySelectorAll('.month-title').forEach(x=>x.onclick=()=>openMonth(+x.dataset.month));document.querySelectorAll('.mini-day[data-date]').forEach(x=>x.onclick=()=>openMonth(+x.dataset.date.slice(5,7)-1))}
+function renderYear(){$('year').innerHTML=months.map((name,m)=>{const {count,offset}=getMonthDays(m);const weeks=monthWeeks(m).map(({w,from,to})=>{let cells='';for(let c=0;c<7;c++){const d=w*7+c-offset+1;if(d<from||d>to)continue;const ds=date(m,d),ev=events.filter(e=>inEvent(e,ds)),sticker=ev.find(e=>e.sticker&&e.start===ds)?.sticker||'',tip=[holidays[ds],...ev.map(e=>e.name)].filter(Boolean).join(' · ');cells+=`<div class="mini-day${holidays[ds]?' holiday':''}${ev.length?' has-plan':''}${c===0||c===6?' weekend':''}" style="grid-column:${c+1}" data-date="${ds}" title="${escapeHTML(tip)}"><span class="mini-num">${d}</span><span class="mini-sticker">${sticker}</span></div>`}const bars=weekLanes(date(m,from),date(m,to)).filter(x=>x.lane<3).map(({e,s,end,lane})=>`<i class="mini-bar${lane?'':' highlight'}${e.start<s?' cont-l':''}${e.end>end?' cont-r':''}" style="--span:${dayOf(end)-dayOf(s)+1};grid-column:${(offset+dayOf(s)-1)%7+1}/span ${dayOf(end)-dayOf(s)+1};grid-row:${lane+1};background:${colorOf(e)}"></i>`).join('');return `<div class="mini-week">${cells}${bars}</div>`}).join('');const total=events.filter(e=>e.start<=date(m,count)&&e.end>=date(m,1)).length;return `<article class="month-card" data-month="${m}" role="button" tabindex="0" aria-label="Open ${name}"><div class="month-title"><strong>${name}</strong></div><div class="mini-heads">${days.map(d=>`<div class="weekday">${d[0]}</div>`).join('')}</div>${weeks}<div class="month-foot"><span>${count} DAYS</span><span>${total?`${total} PLAN${total>1?'S':''}`:''}</span></div></article>`}).join('');document.querySelectorAll('.month-card').forEach(x=>{x.onclick=()=>openMonth(+x.dataset.month);x.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openMonth(+x.dataset.month)}}})}
 function renderDetail(){const m=activeMonth,{count,offset}=getMonthDays(m);$('detailTitle').innerHTML=`${months[m]} 2027<span>.</span>`;$('bigHeads').innerHTML=days.map(d=>`<div class="big-head">${d.toUpperCase()}</div>`).join('');$('bigGrid').innerHTML=monthWeeks(m).map(({w,from,to})=>{let cells='',hasHoliday=false;for(let c=0;c<7;c++){const d=w*7+c-offset+1,cls=`${c===6?' last-col':''}${c===0||c===6?' weekend':''}`;if(d<from||d>to){cells+=`<div class="big-cell outside${cls}" style="grid-column:${c+1}"></div>`;continue}const ds=date(m,d),holiday=holidays[ds],st=events.filter(e=>e.sticker&&e.start===ds).map(e=>e.sticker).join('');if(holiday)hasHoliday=true;cells+=`<div class="big-cell${holiday?' holiday':''}${cls}" style="grid-column:${c+1}" data-date="${ds}"><div class="cell-head"><span class="day-number">${d}</span><span class="day-stickers">${st}</span></div>${holiday?`<div class="holiday-name" title="${escapeHTML(holiday)}">${escapeHTML(holiday)}</div>`:''}</div>`}const segs=weekLanes(date(m,from),date(m,to)),lanes=segs.reduce((n,x)=>Math.max(n,x.lane+1),0),rows=`var(--head)${lanes?` repeat(${lanes},var(--lane))`:''} minmax(var(${hasHoliday?'--foot-hol':'--foot'}),1fr)`;const bars=segs.map(({e,s,end,lane})=>`<button type="button" class="event-bar${e.start<s?' cont-l':''}${e.end>end?' cont-r':''}" data-event="${escapeHTML(e.id)}" title="${escapeHTML(`${e.name} · ${fmtRange(e)}`)}" style="grid-column:${(offset+dayOf(s)-1)%7+1}/span ${dayOf(end)-dayOf(s)+1};grid-row:${lane+2};--c:${colorOf(e)}">${escapeHTML(e.name)}</button>`).join('');return `<div class="week" style="grid-template-rows:${rows}">${cells}${bars}</div>`}).join('');document.querySelectorAll('.big-cell[data-date]').forEach(el=>el.onclick=()=>openModal(el.dataset.date));document.querySelectorAll('[data-event]').forEach(el=>el.onclick=e=>{e.stopPropagation();openModal(null,el.dataset.event)});const monthEvents=events.filter(e=>e.start<=date(m,count)&&e.end>=date(m,1)).sort((a,b)=>a.start.localeCompare(b.start));$('sideEvents').innerHTML=monthEvents.length?monthEvents.map(e=>`<div class="side-item" data-side-id="${escapeHTML(e.id)}"><i class="swatch" style="background:${colorOf(e)}"></i><div><b>${e.sticker?e.sticker+' ':''}${escapeHTML(e.name)}</b><small>${fmtRange(e)}</small></div></div>`).join(''):'<div class="empty-state">Nothing planned yet. The possibilities are endless ✨</div>';document.querySelectorAll('[data-side-id]').forEach(x=>x.onclick=()=>openModal(null,x.dataset.sideId))}
-function render(){renderYear();if(activeMonth!==null)renderDetail()}function picker(){ $('colorPicker').innerHTML=palette.map(c=>`<button type="button" aria-label="Color ${c}" class="color-option ${chosenColor===c?'selected':''}" data-color="${c}" style="background:${c}"></button>`).join('');$('stickerPicker').innerHTML=stickers.map(s=>`<button type="button" class="sticker-option ${chosenSticker===s?'selected':''}" data-sticker="${s}" title="${s||'No sticker'}">${s||'×'}</button>`).join('');document.querySelectorAll('[data-color]').forEach(b=>b.onclick=()=>{chosenColor=b.dataset.color;picker()});document.querySelectorAll('[data-sticker]').forEach(b=>b.onclick=()=>{chosenSticker=b.dataset.sticker;picker()})}function openModal(ds=null,id=null){editing=id;const e=events.find(e=>e.id===id);$('modalTitle').textContent=e?'Edit your plan ✳':'New plan ✳';$('eventName').value=e?.name||'';$('eventStart').value=e?.start||ds||'2027-01-01';$('eventEnd').value=e?.end||ds||'2027-01-01';$('eventNotes').value=e?.notes||'';chosenColor=e?.color||palette[0];chosenSticker=e?.sticker||'';$('deleteBtn').style.display=e?'inline-flex':'none';picker();$('modalBg').classList.add('open');setTimeout(()=>$('eventName').focus(),80)}function closeModal(){$('modalBg').classList.remove('open')}function toast(s){$('toast').textContent=s;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2400)}$('eventForm').onsubmit=e=>{e.preventDefault();let start=$('eventStart').value,end=$('eventEnd').value;if(end<start){toast('End date must be after start date');return}const entry={id:editing||((crypto.randomUUID&&crypto.randomUUID())||String(Date.now())),name:$('eventName').value.trim(),start,end,notes:$('eventNotes').value,color:chosenColor,sticker:chosenSticker};if(!entry.name)return;events=editing?events.map(e=>e.id===editing?entry:e):[...events,entry];save();closeModal();render();toast('Plan saved ✳')};$('deleteBtn').onclick=()=>{if(!confirm('Delete this plan?'))return;events=events.filter(e=>e.id!==editing);save();closeModal();render();toast('Plan deleted')};$('cancelBtn').onclick=closeModal;$('modalBg').onclick=e=>{if(e.target===$('modalBg'))closeModal()};document.onkeydown=e=>{if(e.key==='Escape')closeModal()};$('addBtn').onclick=()=>openModal(activeMonth===null?'2027-01-01':date(activeMonth,1));$('detailAdd').onclick=()=>openModal(date(activeMonth,1));$('backBtn').onclick=showYear;$('prevBtn').onclick=()=>openMonth(activeMonth===0?11:activeMonth-1);$('nextBtn').onclick=()=>openMonth(activeMonth===11?0:activeMonth+1);$('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify({year:YEAR,events},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='2027-my-plans.json';a.click();URL.revokeObjectURL(url)};$('importBtn').onclick=()=>$('importFile').click();$('importFile').onchange=async e=>{try{const data=JSON.parse(await e.target.files[0].text()),list=Array.isArray(data)?data:data.events;if(!Array.isArray(list))throw Error();if(!confirm('Replace existing plans with imported plans?'))return;events=list.filter(x=>x&&typeof x.name==='string'&&/^2027-\d\d-\d\d$/.test(x.start)&&/^2027-\d\d-\d\d$/.test(x.end)&&x.start<=x.end).map(x=>({...x,id:x.id||crypto.randomUUID(),color:palette.includes(x.color)?x.color:palette[0]}));save();render();toast('Plans imported')}catch{toast('Could not read this backup')}e.target.value=''};renderYear();
+function render(){renderYear();if(activeMonth!==null)renderDetail()}function picker(){ $('colorPicker').innerHTML=categories.map(c=>`<button type="button" class="color-chip ${chosenColor===c.color?'selected':''}" data-color="${c.color}"><i style="background:${c.color}"></i>${escapeHTML(c.name)}</button>`).join('');$('stickerPicker').innerHTML=stickers.map(s=>`<button type="button" class="sticker-option ${chosenSticker===s?'selected':''}" data-sticker="${s}" title="${s||'No sticker'}">${s||'×'}</button>`).join('');document.querySelectorAll('[data-color]').forEach(b=>b.onclick=()=>{chosenColor=b.dataset.color;picker()});document.querySelectorAll('[data-sticker]').forEach(b=>b.onclick=()=>{chosenSticker=b.dataset.sticker;picker()})}function openModal(ds=null,id=null){editing=id;const e=events.find(e=>e.id===id);$('modalTitle').textContent=e?'Edit your plan ✳':'New plan ✳';$('eventName').value=e?.name||'';$('eventStart').value=e?.start||ds||'2027-01-01';$('eventEnd').value=e?.end||ds||'2027-01-01';$('eventNotes').value=e?.notes||'';chosenColor=e?.color||categories[0].color;chosenSticker=e?.sticker||'';$('deleteBtn').style.display=e?'inline-flex':'none';picker();$('modalBg').classList.add('open');setTimeout(()=>$('eventName').focus(),80)}function closeModal(){$('modalBg').classList.remove('open')}function toast(s){$('toast').textContent=s;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2400)}$('eventForm').onsubmit=e=>{e.preventDefault();let start=$('eventStart').value,end=$('eventEnd').value;if(end<start){toast('End date must be after start date');return}const entry={id:editing||((crypto.randomUUID&&crypto.randomUUID())||String(Date.now())),name:$('eventName').value.trim(),start,end,notes:$('eventNotes').value,color:chosenColor,sticker:chosenSticker};if(!entry.name)return;events=editing?events.map(e=>e.id===editing?entry:e):[...events,entry];save();closeModal();render();toast('Plan saved ✳')};$('deleteBtn').onclick=()=>{if(!confirm('Delete this plan?'))return;events=events.filter(e=>e.id!==editing);save();closeModal();render();toast('Plan deleted')};$('cancelBtn').onclick=closeModal;$('modalBg').onclick=e=>{if(e.target===$('modalBg'))closeModal()};document.onkeydown=e=>{if(e.key==='Escape'){closeModal();closeColors()}};$('addBtn').onclick=()=>openModal(activeMonth===null?'2027-01-01':date(activeMonth,1));$('detailAdd').onclick=()=>openModal(date(activeMonth,1));$('backBtn').onclick=showYear;$('prevBtn').onclick=()=>openMonth(activeMonth===0?11:activeMonth-1);$('nextBtn').onclick=()=>openMonth(activeMonth===11?0:activeMonth+1);$('editColorsBtn').onclick=openColors;$('addColorBtn').onclick=addColor;$('colorsCancel').onclick=closeColors;$('colorsBg').onclick=e=>{if(e.target===$('colorsBg'))closeColors()};$('colorsForm').onsubmit=saveColors;renderLegend();renderYear();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -178,6 +201,7 @@ function render(){renderYear();if(activeMonth!==null)renderDetail()}function pic
   const SUPABASE_URL = 'https://xfbzskuwmngpjuguucjx.supabase.co';
   const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_2y0KypxZy_s3drOhjitE-w_DFKopCta';
   const STORAGE_KEY = 'my-2027-plans';
+  const CATEGORY_STORAGE_KEY = 'my-2027-categories';
   const originalSetItem = Storage.prototype.setItem;
   const originalRemoveItem = Storage.prototype.removeItem;
   let currentUser = null;
@@ -277,11 +301,17 @@ function render(){renderYear();if(activeMonth!==null)renderDetail()}function pic
     syncing = false;
   }
 
+  const AVATAR_EMOJIS = ['', '🐰', '🐱', '🐸', '🐶', '🐧', '🐻', '🦊', '🐼', '🐨', '🐯', '🌸', '⭐', '🍓', '🍮', '🧸'];
+  const AVATAR_COLORS = ['#ffcf79', '#ffbdcf', '#b9a5ff', '#8adcf3', '#b8e6ac', '#ff9d86', '#e8e4dc'];
+  let syncState = { message: 'Synced', error: false };
+
   function setSyncStatus(message, error = false) {
-    const el = document.querySelector('.cloud-sync');
-    if (!el) return;
-    el.textContent = message;
-    el.classList.toggle('error', error);
+    syncState = { message, error };
+    document.querySelectorAll('.cloud-sync').forEach(el => {
+      el.textContent = message;
+      el.classList.toggle('error', error);
+    });
+    document.querySelector('.cloud-avatar')?.classList.toggle('sync-error', error);
   }
 
   async function syncAll(plans) {
@@ -338,20 +368,165 @@ function render(){renderYear();if(activeMonth!==null)renderDetail()}function pic
     }
   };
 
-  function mountAccountControls() {
-    if (document.querySelector('.cloud-account')) return;
-    const wrapper = document.createElement('div');
-    wrapper.className = 'cloud-account';
-    wrapper.innerHTML = `<span class="cloud-sync">Synced</span><span class="cloud-account-email"></span><button class="cloud-signout" type="button">Sign out</button>`;
-    wrapper.querySelector('.cloud-account-email').textContent = currentUser.email || 'Signed in';
-    wrapper.querySelector('.cloud-signout').onclick = async () => {
-      setSyncStatus('Signing out…');
-      await cloudClient.auth.signOut();
-      originalRemoveItem.call(localStorage, STORAGE_KEY);
-      location.reload();
+  // Nickname and avatar live in the account's user metadata, like the colors.
+  function readProfile() {
+    const saved = currentUser?.user_metadata?.planner_profile || {};
+    return {
+      nickname: String(saved.nickname || (currentUser?.email || '').split('@')[0]).slice(0, 30),
+      avatar: AVATAR_EMOJIS.includes(saved.avatar) ? saved.avatar : '',
+      color: AVATAR_COLORS.includes(saved.color) ? saved.color : AVATAR_COLORS[0]
     };
-    document.querySelector('.actions')?.prepend(wrapper);
   }
+
+  // Shows the chosen emoji, or the nickname's first letter when there is none.
+  function paintAvatar(el, profile) {
+    el.textContent = profile.avatar || ([...profile.nickname.trim()][0] || '?').toUpperCase();
+    el.classList.toggle('initial', !profile.avatar);
+    el.style.background = profile.color;
+  }
+
+  const accountBg = document.createElement('div');
+  accountBg.className = 'modal-bg';
+  accountBg.innerHTML = `<form class="modal account-modal">
+    <h2>Your account ✳</h2>
+    <p class="account-email"></p>
+    <div class="account-preview"><span class="avatar-face big"></span></div>
+    <label for="accountNickname">NICKNAME</label>
+    <input id="accountNickname" type="text" maxlength="30" placeholder="What should we call you?">
+    <label>AVATAR</label>
+    <div class="sticker-picker" data-avatar-picker></div>
+    <label>BACKGROUND</label>
+    <div class="color-picker" data-avatar-colors></div>
+    <p class="account-sync">Cloud sync · <span class="cloud-sync"></span></p>
+    <div class="modal-footer">
+      <button class="btn danger" type="button" data-signout>Sign out</button>
+      <div><button class="btn" type="button" data-cancel>Cancel</button><button class="btn dark" type="submit">Save</button></div>
+    </div>
+  </form>`;
+  document.body.appendChild(accountBg);
+  const accountForm = accountBg.querySelector('form');
+  const nicknameEl = accountBg.querySelector('#accountNickname');
+  let profileDraft = null;
+
+  function renderAccountForm() {
+    paintAvatar(accountBg.querySelector('.avatar-face.big'), profileDraft);
+    const initial = ([...profileDraft.nickname.trim()][0] || '?').toUpperCase();
+    accountBg.querySelector('[data-avatar-picker]').innerHTML = AVATAR_EMOJIS.map(emoji =>
+      `<button type="button" class="sticker-option ${profileDraft.avatar === emoji ? 'selected' : ''}" data-avatar="${emoji}" title="${emoji || 'First letter of nickname'}">${emoji || initial}</button>`
+    ).join('');
+    accountBg.querySelector('[data-avatar-colors]').innerHTML = AVATAR_COLORS.map(color =>
+      `<button type="button" class="avatar-color ${profileDraft.color === color ? 'selected' : ''}" data-avatar-color="${color}" style="background:${color}" aria-label="Background ${color}"></button>`
+    ).join('');
+    accountBg.querySelectorAll('[data-avatar]').forEach(button => button.onclick = () => {
+      profileDraft.avatar = button.dataset.avatar;
+      renderAccountForm();
+    });
+    accountBg.querySelectorAll('[data-avatar-color]').forEach(button => button.onclick = () => {
+      profileDraft.color = button.dataset.avatarColor;
+      renderAccountForm();
+    });
+  }
+
+  function openAccount() {
+    profileDraft = readProfile();
+    nicknameEl.value = profileDraft.nickname;
+    accountBg.querySelector('.account-email').textContent = currentUser?.email || '';
+    renderAccountForm();
+    setSyncStatus(syncState.message, syncState.error);
+    accountBg.classList.add('open');
+  }
+
+  function closeAccount() {
+    accountBg.classList.remove('open');
+  }
+
+  nicknameEl.addEventListener('input', () => {
+    profileDraft.nickname = nicknameEl.value;
+    renderAccountForm();
+  });
+  accountBg.querySelector('[data-cancel]').onclick = closeAccount;
+  accountBg.addEventListener('click', event => {
+    if (event.target === accountBg) closeAccount();
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') closeAccount();
+  });
+
+  accountForm.addEventListener('submit', async event => {
+    event.preventDefault();
+    const profile = { ...profileDraft, nickname: profileDraft.nickname.trim().slice(0, 30) };
+    const saveButton = accountForm.querySelector('[type=submit]');
+    saveButton.disabled = true;
+    const { data, error } = await cloudClient.auth.updateUser({ data: { planner_profile: profile } });
+    saveButton.disabled = false;
+    if (error) {
+      console.error('Could not save profile', error);
+      window.toast?.('Could not save your profile');
+      return;
+    }
+    currentUser = data.user || currentUser;
+    mountAccountControls();
+    closeAccount();
+    window.toast?.('Profile saved ✳');
+  });
+
+  accountBg.querySelector('[data-signout]').onclick = async () => {
+    setSyncStatus('Signing out…');
+    await cloudClient.auth.signOut();
+    originalRemoveItem.call(localStorage, STORAGE_KEY);
+    originalRemoveItem.call(localStorage, CATEGORY_STORAGE_KEY);
+    location.reload();
+  };
+
+  function mountAccountControls() {
+    let button = document.querySelector('.cloud-avatar');
+    if (!button) {
+      button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'cloud-avatar avatar-face';
+      button.setAttribute('aria-label', 'Account settings');
+      button.onclick = openAccount;
+      document.querySelector('.actions')?.append(button);
+    }
+    const profile = readProfile();
+    paintAvatar(button, profile);
+    button.title = profile.nickname;
+    button.classList.toggle('sync-error', syncState.error);
+  }
+
+  // Colors live in the account's user metadata, so they follow the user across devices.
+  async function pushCategories(categories) {
+    if (!currentUser) return;
+    setSyncStatus('Syncing…');
+    const { error } = await cloudClient.auth.updateUser({ data: { planner_categories: categories } });
+    if (error) throw error;
+    setSyncStatus('Synced');
+  }
+
+  async function syncCloudCategories() {
+    try {
+      const { data, error } = await cloudClient.auth.getUser();
+      if (error) throw error;
+      currentUser = data.user || currentUser;
+      const cloudCategories = data.user?.user_metadata?.planner_categories;
+      if (Array.isArray(cloudCategories) && cloudCategories.length) {
+        window.applyCloudCategories?.(cloudCategories);
+      } else if (localStorage.getItem(CATEGORY_STORAGE_KEY)) {
+        await pushCategories(JSON.parse(localStorage.getItem(CATEGORY_STORAGE_KEY)));
+      }
+    } catch (error) {
+      console.error('Could not sync colors', error);
+    }
+  }
+
+  window.addEventListener('planner:categories', event => {
+    syncQueue = syncQueue
+      .then(() => pushCategories(event.detail))
+      .catch(error => {
+        console.error('Color sync failed', error);
+        setSyncStatus('Saved locally · sync retry needed', true);
+      });
+  });
 
   async function loadCloudPlans() {
     const { data, error } = await cloudClient
@@ -383,6 +558,7 @@ function render(){renderYear();if(activeMonth!==null)renderDetail()}function pic
 
     authStatus('Loading your plans…');
     try {
+      await syncCloudCategories();
       await loadCloudPlans();
       overlay.hidden = true;
       mountAccountControls();
