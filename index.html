@@ -3,7 +3,7 @@
 </style>
 <style>
 .cloud-auth-overlay{position:fixed;inset:0;z-index:100;background:#f7f7f5;display:grid;place-items:center;padding:24px}.cloud-auth-card{width:min(430px,100%);background:#fff;border:1px solid #dedede;border-radius:22px;padding:30px;box-shadow:0 24px 80px #00000012}.cloud-auth-card h2{font-size:34px;letter-spacing:-.055em;margin:8px 0 9px}.cloud-auth-card p{font-size:13px;color:#777;line-height:1.6;margin:0 0 21px}.cloud-auth-card label{margin-top:13px}.cloud-auth-card input{width:100%;border:1px solid #dedede;border-radius:10px;padding:12px;background:#fff;outline:none}.cloud-auth-card input:focus{border-color:#777}.cloud-auth-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:20px}.cloud-auth-status{min-height:18px;margin-top:14px!important;color:#b54848!important}.cloud-auth-note{font-size:10px!important;color:#999!important;margin-top:18px!important}.cloud-account{display:flex;align-items:center;gap:8px;border:1px solid #d7d7d7;border-radius:11px;background:#fff;padding:8px 11px;font-size:11px;font-weight:700}.cloud-account-email{max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cloud-sync{font-size:10px;color:#777}.cloud-sync.error{color:#b54848}.cloud-signout{border:0;background:#f2f2f2;border-radius:7px;padding:5px 7px;font-size:10px;font-weight:750}.cloud-auth-overlay[hidden]{display:none}@media(max-width:650px){.cloud-auth-card{padding:23px}.cloud-auth-actions{grid-template-columns:1fr}.cloud-account-email{max-width:105px}}
-.mini-day.has-plan,.mini-day.has-plan:hover{background:transparent;filter:none;overflow:visible}.mini-day.has-plan:hover{background:#f4f4f4}.mini-day.has-plan .mini-num{position:relative;z-index:2;font-weight:800;color:#222}.mini-plan-bar{position:absolute;top:4px;height:16px;z-index:1;pointer-events:none}.mini-plan-bar.single{left:50%;width:22px;transform:translateX(-50%);border-radius:5px}.mini-plan-bar.start{left:calc(50% - 11px);right:-3px;border-radius:5px 0 0 5px}.mini-plan-bar.middle{left:-3px;right:-3px;border-radius:0}.mini-plan-bar.end{left:-3px;right:calc(50% - 11px);border-radius:0 5px 5px 0}.mini-day.holiday .mini-num{position:relative;z-index:3}.mini-day.has-plan.holiday .mini-num{outline:1px solid #239453;outline-offset:1px}.mini-day.has-plan .mini-events{margin-top:7px}.event-row{height:16px;margin-top:2px;margin-left:-5px;margin-right:-5px;padding:2px 5px;font-size:9px;line-height:12px}.event-row.start{margin-left:0}.event-row.end{margin-right:0}@media(max-width:650px){.event-row{height:15px;font-size:8px;line-height:11px;padding:2px}}
+.mini-day.has-plan,.mini-day.has-plan:hover{background:transparent;filter:none;overflow:visible}.mini-day.has-plan:hover{background:#f4f4f4}.mini-day.has-plan .mini-num{position:relative;z-index:4;font-weight:800;color:#222}.mini-plan-bar{position:absolute;top:4px;height:16px;z-index:1;pointer-events:none}.mini-plan-bar.track-1,.mini-plan-bar.track-2{height:7px}.mini-plan-bar.track-1{top:24px}.mini-plan-bar.track-2{top:35px}.mini-plan-bar.single{left:50%;width:22px;transform:translateX(-50%);border-radius:5px}.mini-plan-bar.start{left:calc(50% - 11px);right:-3px;border-radius:5px 0 0 5px}.mini-plan-bar.middle{left:-3px;right:-3px;border-radius:0}.mini-plan-bar.end{left:-3px;right:calc(50% - 11px);border-radius:0 5px 5px 0}.mini-day.holiday .mini-num{position:relative;z-index:5}.mini-day.has-plan.holiday .mini-num{outline:1px solid #239453;outline-offset:1px}.mini-day.has-plan .mini-events{display:none}.mini-sticker{position:absolute;right:1px;bottom:1px;z-index:4;font-size:10px}.event-row{height:16px;margin-top:2px;margin-left:-5px;margin-right:-5px;padding:2px 5px;font-size:9px;line-height:12px}.event-row.start{margin-left:0}.event-row.end{margin-right:0}@media(max-width:650px){.event-row{height:15px;font-size:8px;line-height:11px;padding:2px}}
 </style>
 </head>
 <body><header><div><div class="eyebrow">The life planner · Edition 01</div><h1>Twenty Twenty-Seven<span style="color:#b3b3b3">.</span></h1><div class="subtitle">A little space for big plans ✳ &nbsp; / &nbsp; 2027</div></div><div class="actions"><button class="btn" id="exportBtn">↗ Export backup</button><button class="btn" id="importBtn">↙ Import</button><input type="file" id="importFile" accept="application/json" hidden><button class="btn dark" id="addBtn">＋ New plan</button></div></header><div class="toolbar"><div class="legend"><span><i class="dot" style="background:#bcebc8"></i>US federal holiday</span><span><i class="dot" style="background:#ffbdcf"></i>Travel</span><span><i class="dot" style="background:#b9a5ff"></i>Milestone</span><span><i class="dot" style="background:#ffcf79"></i>Life</span><span><i class="dot" style="background:#8adcf3"></i>Other</span></div><div class="hint">Click any month to zoom in · Click any day to make a plan</div></div><main id="year" class="year"></main><section id="detail" class="detail"><div class="detail-top"><div><button class="btn" id="backBtn">← Full year</button><div class="detail-title" id="detailTitle" style="margin-top:15px"></div></div><div class="detail-controls"><button class="btn" id="prevBtn">←</button><button class="btn" id="nextBtn">→</button><button class="btn dark" id="detailAdd">＋ New plan</button></div></div><div class="detail-layout"><div class="big-calendar"><div id="bigHeads" class="mini-grid"></div><div class="big-grid" id="bigGrid"></div></div><aside class="sidebar"><div class="eyebrow" style="margin-bottom:12px">Monthly notes</div><h3>Make it memorable.</h3><p>All your plans in one place. Tap an event to edit, or tap an empty day to add something new.</p><div id="sideEvents"></div></aside></div></section><div class="modal-bg" id="modalBg"><form class="modal" id="eventForm"><h2 id="modalTitle">New plan ✳</h2><p>Dream it, date it, make it happen.</p><label for="eventName">WHAT'S THE PLAN?</label><input id="eventName" type="text" placeholder="e.g. Tokyo spring trip" maxlength="90" required><div class="two"><div><label for="eventStart">START DATE</label><input id="eventStart" type="date" min="2027-01-01" max="2027-12-31" required></div><div><label for="eventEnd">END DATE</label><input id="eventEnd" type="date" min="2027-01-01" max="2027-12-31" required></div></div><label>COLOR TAG</label><div class="color-picker" id="colorPicker"></div><label>STICKER <span style="color:#999;font-weight:400">(optional · matching cute icon style)</span></label><div class="sticker-picker" id="stickerPicker"></div><label for="eventNotes">DETAILS / NOTES</label><textarea id="eventNotes" placeholder="Flights, reservations, things to remember..."></textarea><div class="modal-footer"><button class="btn" id="deleteBtn" type="button" style="color:#d14e4e;display:none">Delete</button><div style="margin-left:auto"><button class="btn" type="button" id="cancelBtn">Cancel</button><button class="btn dark" type="submit">Save plan ↗</button></div></div></form></div><div class="toast" id="toast"></div><script>
@@ -14,29 +14,48 @@ const YEAR=2027,months=['January','February','March','April','May','June','July'
   const renderYearBase = renderYear;
 
   function decorateYearPlanBars() {
-    document.querySelectorAll('.mini-day[data-date]').forEach(dayCell => {
+    months.forEach((monthName, monthIndex) => {
+      const monthStart = date(monthIndex, 1);
+      const monthLength = getMonthDays(monthIndex).count;
+      const monthEnd = date(monthIndex, monthLength);
+      const monthEvents = events
+        .filter(event => event.start <= monthEnd && event.end >= monthStart)
+        .sort((a, b) => a.start.localeCompare(b.start) || a.end.localeCompare(b.end) || String(a.id).localeCompare(String(b.id)));
+      const trackEnds = [];
+      const tracks = new Map();
+      monthEvents.forEach(event => {
+        let track = trackEnds.findIndex(end => end < event.start);
+        if (track < 0) track = trackEnds.length;
+        tracks.set(event.id, Math.min(track, 2));
+        trackEnds[track] = event.end;
+      });
+
+      document.querySelectorAll(`.mini-day[data-date^="${YEAR}-${pad(monthIndex + 1)}-"]`).forEach(dayCell => {
       dayCell.querySelectorAll('.mini-plan-bar').forEach(bar => bar.remove());
       const ds = dayCell.dataset.date;
       const dayNumber = Number(ds.slice(8, 10));
-      const monthIndex = Number(ds.slice(5, 7)) - 1;
-      const monthLength = getMonthDays(monthIndex).count;
       const weekday = new Date(YEAR, monthIndex, dayNumber).getDay();
-      const primaryEvent = events.find(event => inEvent(event, ds));
-      if (!primaryEvent) return;
+      const dayEvents = monthEvents.filter(event => inEvent(event, ds));
+      if (!dayEvents.length) return;
 
       const sticker = dayCell.querySelector('.mini-sticker');
-      if (sticker && primaryEvent.start !== ds) sticker.textContent = '';
+      const stickerEvent = dayEvents.find(event => event.sticker && event.start === ds);
+      if (sticker) sticker.textContent = stickerEvent?.sticker || '';
 
-      const continuesFromPrevious = primaryEvent.start < ds && dayNumber > 1 && weekday !== 0;
-      const continuesToNext = primaryEvent.end > ds && dayNumber < monthLength && weekday !== 6;
-      const segment = continuesFromPrevious
-        ? (continuesToNext ? 'middle' : 'end')
-        : (continuesToNext ? 'start' : 'single');
-      const bar = document.createElement('i');
-      bar.className = `mini-plan-bar ${segment}`;
-      bar.style.background = palette.includes(primaryEvent.color) ? primaryEvent.color : palette[0];
-      bar.setAttribute('aria-hidden', 'true');
-      dayCell.prepend(bar);
+      dayEvents.forEach(event => {
+        const track = tracks.get(event.id) ?? 0;
+        const continuesFromPrevious = event.start < ds && dayNumber > 1 && weekday !== 0;
+        const continuesToNext = event.end > ds && dayNumber < monthLength && weekday !== 6;
+        const segment = continuesFromPrevious
+          ? (continuesToNext ? 'middle' : 'end')
+          : (continuesToNext ? 'start' : 'single');
+        const bar = document.createElement('i');
+        bar.className = `mini-plan-bar track-${track} ${segment}`;
+        bar.style.background = palette.includes(event.color) ? event.color : palette[0];
+        bar.setAttribute('aria-hidden', 'true');
+        dayCell.prepend(bar);
+      });
+    });
     });
   }
 
